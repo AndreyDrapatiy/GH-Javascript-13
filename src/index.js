@@ -1,19 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { Values } from "redux-form-website-template";
-import store from "./store";
-import showResults from "./showResults";
-import Form from "./Form";
+import React from 'react'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/lib/integration/react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
 
-
-const rootEl = document.getElementById("root");
+import configureStore from './configureStore'
+let { store, persist } = configureStore()
 
 ReactDOM.render(
     <Provider store={store}>
-        <div className='container'>
-            <Form onSubmit={showResults} />
-        </div>
+        <PersistGate loading={null} persistor={persist}>
+            <App />
+        </PersistGate>
     </Provider>,
-    rootEl
+    document.getElementById('root')
 );

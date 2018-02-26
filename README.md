@@ -2,7 +2,7 @@
 
 ### Description
 
-It is Simple React-redux user form with validation
+It is Simple React-redux user form with real-time validation
 
 ### Prerequisites
 
