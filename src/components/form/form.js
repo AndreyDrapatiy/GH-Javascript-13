@@ -32,8 +32,13 @@ export default class Form extends Component {
 
     changeInput ({target: {value, name}}) {
 
+
+
+
+
         let errorMass = this.state.errors;
         let emailValue = false;
+        console.log(this.state.errors)
 
         if (name === 'name') {
             errorMass.nameError = '';
@@ -62,8 +67,9 @@ export default class Form extends Component {
             if (value.length <= 0) {
                 errorMass.phoneError = 'required'
             }
-            else if (value.length <= 7) {
-                errorMass.phoneError = 'Is to short'
+
+            else if (value < '0' || value > '9') {
+                errorMass.phoneError = 'Must be a number'
             }
         }
         if (name === 'postcode') {
@@ -100,6 +106,7 @@ export default class Form extends Component {
                 [name]: {$set: value}
             })
         })
+        console.log(this.state.formValid)
     }
     handleChange (target) {
         this.setState({
@@ -192,7 +199,7 @@ export default class Form extends Component {
                     dateFormat="YYYY/MM/DD"
                 />
                 <span className="warning">{this.state.errors.dateError}</span>
-                <button type="submit" className={'submit-input'} value="Submit" disabled={!this.state.formValid} onClick={this.submit}>Submit</button>
+                <button type="submit" className={'submit-input'} value="Submit" disabled={!this.state.formValid } onClick={this.submit}>Submit</button>
             </form>
         )
     }

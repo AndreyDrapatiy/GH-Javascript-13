@@ -2,17 +2,30 @@
 
 ### Description
 
-It is Simple React-redux user form with real-time validation
+React application using redux with persistent storage and validations. 
+It is a form with such fields: 
+* name (required), 
+* email (required), 
+* phone (required),
+* address (required),
+* postcode (required), 
+* date of birth (required, datepicker).
+
 
 ### Prerequisites
 
-You need Node.js to start app
+You need the following programs to be installed on your computer:
 
-###  Installation
+Node.js
 
-* In the terminal run the command "npm install" to get all the required modules.
- 
+
 ### Start Application for Development
 
-* You just need to use command "npm start" to run application.
+* You just need to use command "npm run start" to run application.
  
+### Start Application for Building Production Version
+* Run "npm run build:prod" in the terminal.
+
+### Technologies Used
+
+React, Redux, JavaScript, Sass
