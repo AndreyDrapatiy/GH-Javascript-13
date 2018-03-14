@@ -22,38 +22,44 @@ export default class Form extends Component {
 
     validateForm() {
         this.setState({formValid:
+
             this.state.user.email
             && this.state.user.name
             && this.state.user.phone
             && this.state.user.address
             && this.state.user.date
+            && this.state.errors
+            && !this.state.errors.nameError
+            && !this.state.errors.postcodeError
+            && !this.state.errors.addressError
+            && !this.state.errors.emailError
+            && !this.state.errors.phoneError
+            && !this.state.errors.dateError
+
         });
+        console.log(this.state.errors)
     }
 
     changeInput ({target: {value, name}}) {
 
-
-
-
-
         let errorMass = this.state.errors;
         let emailValue = false;
-        console.log(this.state.errors)
 
         if (name === 'name') {
             errorMass.nameError = '';
 
-            if(value.length <= 0){
-                errorMass.nameError = 'required'
+            if (value.length <= 4) {
+                errorMass.nameError = 'required';
+                this.setState.errors =errorMass.nameError = 'required'
             }
-            else if(value.length <= 3){
-                errorMass.nameError = 'Is to short'
-            }}
+
+        }
 
         if (name === 'email') {
             errorMass.emailError = '';
             if (value.length <= 0) {
                 errorMass.emailError = 'required'
+
             } else {
                 emailValue = EMAIL_VALIDATION_REGEX.test(value)
             }
@@ -68,9 +74,6 @@ export default class Form extends Component {
                 errorMass.phoneError = 'required'
             }
 
-            else if (value < '0' || value > '9') {
-                errorMass.phoneError = 'Must be a number'
-            }
         }
         if (name === 'postcode') {
             errorMass.postcodeError = '';
@@ -98,7 +101,7 @@ export default class Form extends Component {
             }
 
         this.setState({
-            errors: errorMass
+            errors: errorMass,
         }, this.validateForm);
 
         this.setState({
@@ -106,7 +109,6 @@ export default class Form extends Component {
                 [name]: {$set: value}
             })
         })
-        console.log(this.state.formValid)
     }
     handleChange (target) {
         this.setState({
@@ -122,7 +124,6 @@ export default class Form extends Component {
     submit (e) {
         e.preventDefault();
         let errorMass = {};
-
         this.setState({
             errors: errorMass
         });
@@ -137,6 +138,12 @@ export default class Form extends Component {
                     address: '',
                 }
             })
+        }
+    }
+
+    keydowPhone(e){
+        if(e.keyCode < 49 || e.keyCode > 58){
+            e.preventDefault()
         }
     }
 
@@ -163,6 +170,7 @@ export default class Form extends Component {
                 <span className="warning">{this.state.errors.emailError}</span>
                 <input
                     onChange={this.changeInput}
+                    onKeyDown={this.keydowPhone}
                     onBlur={this.changeInput}
                     value={this.state.user.phone}
                     placeholder="Phone"
@@ -199,7 +207,7 @@ export default class Form extends Component {
                     dateFormat="YYYY/MM/DD"
                 />
                 <span className="warning">{this.state.errors.dateError}</span>
-                <button type="submit" className={'submit-input'} value="Submit" disabled={!this.state.formValid } onClick={this.submit}>Submit</button>
+                <button type="submit" className={'submit-input'} value="Submit" disabled={!this.state.formValid} onClick={this.submit}>Submit</button>
             </form>
         )
     }
